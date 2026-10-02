@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720" role="img" aria-label="Empty record sleeve with one groove ring">
+<title>Empty record sleeve</title>
+<rect width="960" height="720" fill="#121613"/>
+<path d="M232 151 L266 115 H694 L728 151 Z" fill="#252D26" stroke="#3E4A40" stroke-width="3" stroke-linejoin="round"/>
+<rect x="232" y="151" width="496" height="496" rx="4" fill="#1B211C" stroke="#3E4A40" stroke-width="3"/>
+<path d="M254 172 H706" fill="none" stroke="#3E4A40" stroke-width="2"/>
+<circle cx="480" cy="399" r="166" fill="none" stroke="#F3EFE5" stroke-width="3" opacity=".62"/>
+<path d="M663 151 V180" fill="none" stroke="#E48C72" stroke-width="12" stroke-linecap="square"/>
+</svg>

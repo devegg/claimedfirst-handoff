@@ -1,0 +1,15 @@
+# Decisions still open in these drafts
+- Legal operator, contact address, effective date, service locations, and governing jurisdiction.
+- Minimum age; **18 is a proposal**, not a settled rule, and its enforcement method is open.
+- Whether and when Google or Apple sign-in will launch.
+- The scope and duration of permission to display submitted names, titles, and links.
+- The 72-hour dispute window’s trigger, notice, pause, evidence, decision, expiry, and appeal rules.
+- Moderation, suspension, page removal, duplicate-page handling, and correction of erroneous or abusive claim numbers.
+- What claim dates and statuses are public, and what old share links and saved images reveal after a privacy change.
+- Account-deletion treatment of claim records, number gaps, watchlists, referrals, points, backups, and shared links.
+- Retention periods for all data other than claims, plus the exact verification and report data retained.
+- Names and roles of hosting, email, and any later sign-in providers.
+- Sign-in cookies, server logs, analytics tools, visitor choices, and their retention periods.
+- The method for verifying and fulfilling access or deletion requests.
+- Notice and acceptance rules for updated Terms and Privacy Policy.
+- Any liability cap, exclusions, and dispute venue or process.

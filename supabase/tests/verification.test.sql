@@ -1,0 +1,14 @@
+begin;
+select plan(4);
+select has_column('public','verification_attempts','user_id','verification_attempts has user_id');
+select col_not_null('public','verification_attempts','user_id','user_id is required');
+insert into auth.users(id) values ('00000000-0000-0000-0000-0000000000f1');
+insert into profiles(id,handle) values ('00000000-0000-0000-0000-0000000000f1','ver_1');
+insert into artists(id,name,slug) values ('00000000-0000-0000-0000-0000000000f2','V','ver-a');
+insert into verification_attempts(artist_id,user_id,code) values ('00000000-0000-0000-0000-0000000000f2','00000000-0000-0000-0000-0000000000f1','cf-AAAAAA');
+set local role anon;
+select is((select count(*)::int from verification_attempts),0,'anon reads 0 rows');
+set local role authenticated;
+select is((select count(*)::int from verification_attempts),0,'authenticated reads 0 rows');
+select * from finish();
+rollback;

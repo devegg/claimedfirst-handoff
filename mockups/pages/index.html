@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClaimedFirst Pages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14110f;--ink2:#1d1916;--ink3:#2a2420;--line:#3a322c;--paper:#efe6d6;--muted:#a39886;--accent:#e2472b;--ok:#7fb069;--serif:'Instrument Serif',Georgia,serif;--sans:'Manrope',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:#0c0a09;color:var(--paper);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.page{min-height:100%;display:grid;grid-template-columns:minmax(260px,340px) auto;gap:48px;justify-content:center;align-items:center;padding:32px 24px}
+.rail h1{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.05}
+.rail .sub{color:var(--muted);font-size:13px;margin:8px 0 22px;line-height:1.5}
+.steps{list-style:none;padding:0;display:grid;gap:6px}
+.steps button{width:100%;text-align:left;padding:10px 12px;border-radius:10px;display:grid;grid-template-columns:26px 1fr;gap:10px;border:1px solid transparent}
+.steps button:hover{background:var(--ink2)}
+.steps button[aria-current="step"]{background:var(--ink2);border-color:var(--line)}
+.steps .n{font-family:var(--serif);font-size:20px;color:var(--muted)}
+.steps [aria-current="step"] .n{color:var(--accent)}
+.steps .t{font-weight:600;font-size:14px;display:block}
+.steps .d{font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:2px;display:none}
+.steps [aria-current="step"] .d{display:block}
+.fine{margin-top:20px;font-size:11.5px;color:var(--muted);line-height:1.5}
+.phone{width:390px;height:800px;max-height:calc(100vh - 48px);background:var(--ink);border:1px solid var(--line);border-radius:38px;overflow:hidden;position:relative;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.banner{background:var(--accent);color:#1a0d09;font-size:11.5px;font-weight:700;text-align:center;padding:5px;letter-spacing:.04em}
+.status{height:30px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 24px;font-size:12px;color:var(--muted);font-weight:600}
+.screen{flex:1;overflow-y:auto;padding:6px 22px 24px;display:flex;flex-direction:column;animation:in .3s ease both}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.mark{font-size:11px;letter-spacing:.22em;font-weight:700;text-transform:uppercase}
+.mark b{color:var(--accent)}
+.pill{font-size:11px;border:1px solid var(--line);border-radius:99px;padding:4px 10px;color:var(--muted)}
+.pill.ok{color:var(--ok);border-color:var(--ok)}
+.pill.warn{color:#e8b04a;border-color:#6b5320}
+h2{font-family:var(--serif);font-weight:400;font-size:38px;line-height:1}
+h3{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.05}
+.meta{color:var(--muted);font-size:13px;margin-top:6px}
+.note{font-size:12.5px;color:var(--muted);line-height:1.5}
+.lead{font-size:14.5px;line-height:1.55;color:#d8cfbf;margin:10px 0}
+.btn{width:100%;padding:14px;border-radius:14px;font-weight:700;font-size:15px;text-align:center}
+.btn.p{background:var(--accent);color:#1a0d09}
+.btn.p:hover:not(:disabled){background:#f05a3d}
+.btn.p:disabled{opacity:.4;cursor:not-allowed}
+.btn.s{border:1px solid var(--line)}
+.btn.s:hover{background:var(--ink2)}
+.btn.sm{width:auto;padding:8px 14px;font-size:13px;border-radius:10px}
+.stack{display:grid;gap:10px;margin-top:auto;padding-top:16px}
+.art{aspect-ratio:1;border-radius:20px;position:relative;overflow:hidden;background:radial-gradient(circle at 30% 25%,#f27a4a 0,transparent 45%),radial-gradient(circle at 75% 80%,#7a2a3c 0,transparent 55%),#2b1612}
+.art::before{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% 50%,transparent 0 14px,rgba(20,17,15,.28) 15px 16px)}
+.art::after{content:"";position:absolute;left:50%;top:50%;width:16%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:var(--ink);box-shadow:0 0 0 4px rgba(239,230,214,.25)}
+.art.short{aspect-ratio:2.2}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.stat{background:var(--ink2);border:1px solid var(--line);border-radius:14px;padding:11px 14px}
+.stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.stat .v{font-family:var(--serif);font-size:30px;line-height:1.1;margin-top:2px}
+.stat .v em{color:var(--accent);font-style:normal}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:99px;padding:3px;margin-bottom:12px}
+.seg button{padding:6px 14px;border-radius:99px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+.sec{margin-top:18px}
+.sec h4{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:700;margin-bottom:8px}
+.list{background:var(--ink2);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.row{display:grid;grid-template-columns:36px 1fr auto;gap:8px;padding:10px 14px;font-size:13.5px;border-bottom:1px solid var(--ink3);align-items:center}
+.row:last-child{border:0}
+.row .r{font-family:var(--serif);font-size:20px;color:var(--muted)}
+.row .p{color:var(--muted);font-size:12px}
+.row.me{background:rgba(226,71,43,.12)}
+.row.me .r{color:var(--accent)}
+.row .hist{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:6px;padding:2px 6px;color:var(--muted)}
+.field{display:grid;gap:6px;margin:10px 0}
+.field label{font-size:12px;color:var(--muted);font-weight:600}
+.in{width:100%;background:var(--ink2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15px}
+.in.bad{border-color:var(--accent)}
+.in.good{border-color:var(--ok)}
+.hint{font-size:12px;min-height:16px}
+.hint.bad{color:var(--accent)}
+.hint.good{color:var(--ok)}
+.slotgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin:14px 0}
+.slotgrid i{aspect-ratio:1;border-radius:6px;background:var(--ink3);position:relative;display:block}
+.slotgrid i[data-state="open"]{background:transparent;border:1px solid var(--paper)}
+.slotgrid i[data-state="filled"]{background:var(--paper)}
+.slotgrid i[data-m]::after{content:"";position:absolute;right:-2px;top:-2px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.code{font-family:ui-monospace,Menlo,monospace;font-size:22px;letter-spacing:.12em;background:var(--ink2);border:1px dashed var(--accent);border-radius:12px;padding:14px;text-align:center;color:var(--accent);margin:10px 0}
+.songrow{display:grid;grid-template-columns:1fr 28px;gap:8px;margin-bottom:8px}
+.songrow .two{display:grid;gap:6px}
+.x{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);color:var(--muted);align-self:start;margin-top:6px}
+.toggle{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--ink2);border:1px solid var(--line);border-radius:14px;gap:12px}
+.toggle b{font-size:14px;display:block}
+.sw{width:44px;height:26px;border-radius:99px;background:var(--ink3);border:1px solid var(--line);position:relative;flex:none}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:var(--paper);transition:.15s}
+.sw[aria-checked="true"]{background:var(--accent)}
+.sw[aria-checked="true"]::after{left:20px}
+.veil{position:absolute;inset:0;background:rgba(8,6,5,.7);display:flex;align-items:flex-end;z-index:5}
+.sheet{width:100%;background:var(--ink2);border-top:1px solid var(--line);border-radius:26px 26px 0 0;padding:22px 22px 26px}
+.sheet h3{margin-bottom:8px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.toast{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);background:var(--paper);color:var(--ink);padding:10px 16px;border-radius:99px;font-size:13px;font-weight:600;z-index:9;white-space:nowrap}
+.badge{display:inline-flex;gap:6px;align-items:center;font-size:12px;font-weight:700;background:rgba(226,71,43,.14);color:var(--accent);border-radius:99px;padding:5px 11px}
+.chrome{height:38px;flex:none;display:none;align-items:center;gap:8px;padding:0 16px;border-bottom:1px solid var(--line);background:var(--ink2)}
+.chrome i{width:10px;height:10px;border-radius:50%;background:var(--ink3);display:inline-block;border:1px solid var(--line)}
+.chrome .url{flex:1;max-width:520px;margin:0 auto;font-size:12px;color:var(--muted);background:var(--ink);border:1px solid var(--line);border-radius:99px;padding:5px 14px;text-align:center}
+.cols{display:block}
+.dev{margin-bottom:16px}
+.page.deskmode{grid-template-columns:minmax(0,1fr);max-width:1180px;margin:0 auto;gap:20px;align-content:start}
+.page.deskmode .steps{grid-auto-flow:column;grid-auto-columns:1fr}
+.page.deskmode .steps .d{display:none!important}
+.phone.desk{width:100%;max-width:1100px;height:780px;max-height:none;border-radius:16px;margin:0 auto}
+.phone.desk .status{display:none}
+.phone.desk .chrome{display:flex}
+.phone.desk .screen{padding:24px 44px 28px}
+.phone.desk .screen.narrow{padding-left:calc((100% - 560px)/2);padding-right:calc((100% - 560px)/2)}
+.phone.desk .cols{display:grid;grid-template-columns:minmax(300px,380px) minmax(0,1fr);gap:44px;align-items:start}
+.phone.desk .veil{align-items:center;justify-content:center}
+.phone.desk .sheet{max-width:440px;border:1px solid var(--line);border-radius:22px}
+.phone.desk .stack{max-width:560px}
+@media (max-width:860px){.page{grid-template-columns:1fr;padding:16px;gap:20px}.rail{order:2}.phone{width:100%;max-width:390px;margin:0 auto;height:760px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="page">
+  <aside class="rail">
+    <h1>Four pages,<br>one product.</h1>
+    <p class="sub">Clickable mockups of the main pages. Everyone and everything shown is fictional.</p>
+    <div class="seg dev" id="dev" role="group" aria-label="Device"></div>
+    <ol class="steps" id="steps"></ol>
+    <p class="fine">Recognition only: no prizes, payments, or real accounts. Rules shown are the v1 spec in <code>docs/spec-v1-design.md</code>.</p>
+  </aside>
+  <main class="phone" id="phone" aria-label="ClaimedFirst page mockups"></main>
+</div>
+<script>
+const PAGES=[
+ {t:"Onboarding",d:"Pick a handle, see the roster with its unexplained markers, get a Original Scout badge."},
+ {t:"Artist page",d:"Unverified vs verified view, the Founders board with historical claims, claim and watch."},
+ {t:"Leaderboard",d:"The monthly season board and a scout's Historical 100, with the 14-day hold."},
+ {t:"Artist manage",d:"Verify with a bio code, then Top Songs, donation link, freeze and delist."}
+];
+const RESERVED=["admin","claimedfirst","support","root","api","login","onboarding","artist","scout","about"];
+const TAKEN=["maya","juno","sam","lee","rio","kai"];
+const S={vis:"public",wvis:"named",page:0,ob:0,handle:"",view:"fan",claimed:false,board:"season",
+  verified:false,vResult:null,vPick:"suno",
+  songs:[{t:"Glass Hours",u:"https://suno.com/song/a1"},{t:"Night Bus",u:"https://suno.com/song/a2"},{t:"Paper Moon",u:"https://suno.com/song/a3"},{t:"",u:""},{t:"",u:""}],
+  donate:"",freeze:false,delisted:false,sheet:null,toast:null,device:"phone",aud:"claimers"};
+const URLS=["welcome","ember-vale","leaderboard","ember-vale/manage"];
+const $=s=>document.querySelector(s);
+const phone=$("#phone");let tt;
+const bar=r=>`<div class="bar"><span class="mark">Claimed<b>First</b></span>${r||""}</div>`;
+const art=c=>`<div class="art ${c||""}" role="img" aria-label="Placeholder artwork"></div>`;
+
+function handleCheck(h){
+  if(!h) return {ok:false,msg:""};
+  if(!/^[a-z0-9_]*$/.test(h)) return {ok:false,msg:"Lowercase letters, numbers and underscores only."};
+  if(h.length<3) return {ok:false,msg:"At least 3 characters."};
+  if(h.length>20) return {ok:false,msg:"20 characters at most."};
+  if(RESERVED.includes(h)) return {ok:false,msg:"That name is reserved."};
+  if(TAKEN.includes(h)) return {ok:false,msg:"Already taken."};
+  return {ok:true,msg:"@"+h+" is yours."};
+}
+function songState(){
+  const filled=S.songs.filter(s=>s.t.trim()||s.u.trim());
+  const bad=filled.some(s=>!s.t.trim()||!/^https:\/\/\S+\.\S+/.test(s.u.trim()));
+  const n=filled.length;
+  if(n<1) return {ok:false,msg:"Add at least one song."};
+  if(bad) return {ok:false,msg:"Every song needs a title and an https link."};
+  return {ok:true,msg:`${n} of 10 songs ready.`};
+}
+function donateState(){
+  if(!S.donate) return {ok:true,msg:"Optional. A plain link to Ko-fi, PayPal.me or similar."};
+  return /^https:\/\/\S+\.\S+/.test(S.donate)?{ok:true,msg:"Looks good."}:{ok:false,msg:"Must start with https://"};
+}
+
+const views=[
+/* 0 onboarding */
+()=>S.ob===0?`<div class="screen narrow">${bar('<span class="pill">Step 1 of 2</span>')}
+  <span class="badge" style="align-self:flex-start;margin-bottom:12px">Invited by @maya</span>
+  <h2>Pick your handle</h2>
+  <p class="lead">This is how other scouts see you. You can't change it later.</p>
+  <div class="field"><label for="h">Handle</label><input id="h" class="in" autocomplete="off" autocapitalize="none" spellcheck="false" value="${S.handle}" placeholder="yourname"><div class="hint" id="hh" aria-live="polite"></div></div>
+  <div class="stack"><button class="btn p" id="hgo" data-a="ob-next" disabled>Continue</button></div></div>`
+:`<div class="screen narrow">${bar('<span class="pill">Step 2 of 2</span>')}
+  <h2>Welcome, @${S.handle||"you"}</h2>
+  <div style="margin:10px 0"><span class="badge">Original Scout #43</span></div>
+  <p class="lead">This is your roster. You start with 5 open slots.</p>
+  <div class="slotgrid" role="img" aria-label="Roster slots">${Array.from({length:50},(_,i)=>`<i data-state="${i<5?'open':'locked'}" ${[4,9,19,29,49].includes(i)?'data-m="1"':''}></i>`).join("")}</div>
+  <p class="note">Nothing is claimed yet. Find an artist you believe in and claim them before anyone else does.</p>
+  <div class="stack"><button class="btn p" data-a="page" data-n="1">Find my first artist</button></div></div>`,
+
+/* 1 artist page */
+()=>{const v=S.view==="artist";const num=S.claimed?7:7;
+ return `<div class="screen">${bar('<span class="pill">claimedfirst.com/ember-vale</span>')}
+  <div class="cols"><div>
+  <div class="seg" role="group" aria-label="View as"><button data-a="view" data-v="fan" aria-pressed="${!v}">Fan sees</button><button data-a="view" data-v="artist" aria-pressed="${v}">Verified artist</button></div>
+  ${art()}
+  <h2 style="margin-top:14px">Ember Vale</h2>
+  <div class="meta">Dream-pop · <a href="#" onclick="return false" style="color:var(--paper)">suno.com/@embervale</a></div>
+  <div style="margin-top:10px">${v?'<span class="pill ok">✓ Artist-verified</span>':'<span class="pill warn">Fan-created page, not verified by the artist</span>'}</div>
+  <div class="stats"><div class="stat"><div class="k">Claimed by</div><div class="v">${S.claimed?7:6}</div></div><div class="stat"><div class="k">${S.claimed?'Your number':'Next number'}</div><div class="v"><em>#7</em></div></div></div>
+  ${S.claimed?`<p class="note" style="margin-bottom:8px">You're #7. You'll appear on the Founders board after 14 days. Roster: 1 of 5.</p>`:""}
+  <div class="row2">${S.claimed?`<button class="btn s" data-a="toast" data-m="Opens the share card flow">Share my card</button><button class="btn s" data-a="drop">Drop</button>`:`<button class="btn p" data-a="claim">Claim as #7</button><button class="btn s" data-a="watch">Watch</button>`}</div>
+  </div><div>
+  ${v?`<div class="sec" style="margin-top:0"><h4>Top Songs</h4><div class="list">${["Glass Hours","Night Bus","Paper Moon","Low Tide","Static Garden"].map((s,i)=>`<div class="row"><span class="r">${i+1}</span><span>${s}</span><span class="p">link</span></div>`).join("")}</div>
+   <button class="btn s" style="margin-top:10px" data-a="toast" data-m="Opens Ember's own donation link">Support Ember Vale ↗</button></div>`:""}
+  <div class="sec"><h4>Founders · earliest 100</h4><div class="list">
+    <div class="row"><span class="r">1</span><span>@juno</span><span class="p">active</span></div>
+    <div class="row"><span class="r">2</span><span>@maya</span><span class="p">active</span></div>
+    <div class="row"><span class="r">3</span><span>@sam</span><span class="hist">Historical</span></div>
+    <div class="row"><span class="r">4</span><span style="color:var(--muted);font-style:italic">Anonymous scout</span><span class="p">active</span></div>
+    <div class="row"><span class="r">5</span><span style="color:var(--muted);font-style:italic">Anonymous scout</span><span class="p">active</span></div>
+    <div class="row"><span class="r">6</span><span>@kai</span><span class="hist">Historical</span></div></div>
+   <p class="note" style="margin-top:8px">Claims show here after being held 14 days. Dropped claims keep their number as Historical.</p></div>
+  </div></div>
+  <div style="height:12px"></div></div>`;},
+
+/* 2 leaderboard */
+()=>`<div class="screen narrow">${bar('<span class="pill">September 2026</span>')}
+  <h3 style="margin-bottom:12px">Leaderboard</h3>
+  <div class="seg" role="group" aria-label="Board"><button data-a="board" data-b="season" aria-pressed="${S.board==='season'}">Season</button><button data-a="board" data-b="hist" aria-pressed="${S.board==='hist'}">My Historical 100</button></div>
+  ${S.board==="season"?`<div class="list">
+    ${[["1","@juno","2,410"],["2","@rio","1,980"],["3","@lee","1,455"],["4","@kai","1,120"],["5","@sam","980"]].map(r=>`<div class="row"><span class="r">${r[0]}</span><span>${r[1]}</span><span class="p">${r[2]} pts</span></div>`).join("")}
+    <div class="row"><span class="r" style="font-size:16px">…</span><span></span><span></span></div>
+    <div class="row me"><span class="r">14</span><span><b>@maya</b></span><span class="p">412 pts</span></div></div>
+   <p class="note" style="margin-top:10px">Points = new qualified fans since your claim × your early-claim bonus. Resets monthly. Recognition only: no prizes.</p>`
+  :`<div class="list">
+    <div class="row"><span class="r">2</span><span>Ember Vale<br><span class="p">claimed Sep 3, 2026</span></span><span class="p">active</span></div>
+    <div class="row"><span class="r">4</span><span>Juniper Static<br><span class="p">claimed Aug 21, 2026</span></span><span class="hist">Historical</span></div>
+    <div class="row"><span class="r">9</span><span>Low Tide Radio<br><span class="p">claimed Jul 30, 2026</span></span><span class="p">active</span></div>
+    <div class="row"><span class="r">31</span><span>Paper Moon<br><span class="p">claimed Jul 2, 2026</span></span><span class="hist">Historical</span></div>
+    <div class="row" style="opacity:.55"><span class="r">12</span><span>Static Garden<br><span class="p">claimed 5 days ago</span></span><span class="p">in 9 days</span></div></div>
+   <p class="note" style="margin-top:10px">Your 100 earliest claim numbers, active and historical. A claim appears after it has been held 14 days.</p>`}
+</div>`,
+
+/* 3 manage */
+()=>`<div class="screen">${bar('<span class="pill">Ember Vale · manage</span>')}
+  ${S.delisted?`<h3>Page removed</h3><p class="lead">Ember Vale is hidden from discovery. Scouts keep their claim history, shown as "artist removed profile".</p><div class="stack"><button class="btn s" data-a="relist">Undo (demo)</button></div>`:`
+  <div class="cols"><div>
+  <div class="sec" style="margin-top:0"><h4>1 · Verify</h4>
+   ${S.verified?`<div class="list" style="padding:14px"><span class="pill ok">✓ Artist-verified</span><p class="note" style="margin-top:8px">Proved with your Suno profile. Your page is live and the badge shows.</p></div>`:`
+   <p class="note">Paste this code into the bio of one of your public pages, then check.</p>
+   <div class="code">cf-K7M4QX</div>
+   <div class="field"><label for="vp">Which page has the code?</label><select id="vp" class="in" data-a="vpick"><option value="suno" ${S.vPick==='suno'?'selected':''}>My Suno profile (code is in the bio)</option><option value="yt" ${S.vPick==='yt'?'selected':''}>My YouTube channel (code not added yet)</option></select></div>
+   <button class="btn p" data-a="check">Check now</button>
+   ${S.vResult==="bad"?`<p class="hint bad" style="margin-top:8px" role="status">Code not found on that page. Add it to the bio, save, and check again. Pages that need a browser to display may be unreadable: use another page, or contact us for a manual check.</p>`:""}`}</div>
+  ${S.verified?`
+  <div class="sec"><h4>2 · Top Songs (up to 10)</h4>
+   <div id="songs">${S.songs.map((s,i)=>`<div class="songrow"><div class="two"><input class="in" data-song="${i}" data-f="t" placeholder="Song title" value="${s.t}"><input class="in" data-song="${i}" data-f="u" placeholder="https://" value="${s.u}"></div><button class="x" data-a="rmsong" data-i="${i}" aria-label="Remove song ${i+1}">×</button></div>`).join("")}</div>
+   <div class="row2"><button class="btn s sm" data-a="addsong" ${S.songs.length>=10?'disabled':''}>+ Add song</button><button class="btn p sm" id="ssave" data-a="savesongs">Save</button></div>
+   <div class="hint" id="sh" aria-live="polite" style="margin-top:6px"></div></div>
+  </div><div>
+  <div class="sec" style="margin-top:0"><h4>3 · Your audience</h4>
+   <div class="seg" role="group" aria-label="Audience"><button data-a="aud" data-t="claimers" aria-pressed="${S.aud==='claimers'}">Claimed · 7</button><button data-a="aud" data-t="watching" aria-pressed="${S.aud==='watching'}">Watching · 23</button></div>
+   <div class="list">${S.aud==="claimers"
+     ?[["1","@juno","active"],["2","@maya","active"],["3","@sam","hist"],["4","Anonymous scout","active"],["5","@rio","artist"],["6","@kai","hist"],["7","@nina","active"]].map(r=>`<div class="row"><span class="r">${r[0]}</span><span ${r[1][0]!=="@"?'style="color:var(--muted);font-style:italic"':''}>${r[1]}</span>${r[2]==="hist"?'<span class="hist">Historical</span>':r[2]==="artist"?'<span class="hist">Artist only</span>':'<span class="p">active</span>'}</div>`).join("")
+     :[["@pat","Sep 28"],["@dee","Sep 27"],["@oli","Sep 25"]].map(r=>`<div class="row" style="grid-template-columns:1fr auto"><span>${r[0]}</span><span class="p">since ${r[1]}</span></div>`).join("")+`<div class="row" style="grid-template-columns:1fr"><span class="p" style="font-style:italic">+ 20 anonymous scouts</span></div>`}</div>
+   <p class="note" style="margin-top:8px">Each scout chooses who sees their name. "Artist only" scouts are named to you but anonymous to the public. Fully anonymous scouts still count, but you will never see who they are.</p></div>
+  <div class="sec"><h4>4 · Donation link</h4>
+   <div class="field"><input id="dn" class="in" placeholder="https://ko-fi.com/yourname" value="${S.donate}"><div class="hint" id="dh"></div></div></div>
+  <div class="sec"><h4>5 · Page controls</h4>
+   <div class="toggle"><div><b>Freeze new claims</b><span class="note">Existing claims stay.</span></div><button class="sw" role="switch" aria-checked="${S.freeze}" aria-label="Freeze new claims" data-a="freeze"></button></div>
+   <button class="btn s" style="margin-top:10px;color:var(--accent)" data-a="open-delist">Remove my page…</button></div>`:`<p class="note" style="margin-top:16px">Top Songs, a donation link and page controls unlock after you verify.</p>`}
+  </div></div>
+  <div style="height:10px"></div>`}
+</div>`
+];
+
+function sheet(){
+  if(S.sheet==="watch") return `<div class="veil" data-a="close-veil"><div class="sheet" role="dialog" aria-label="Watch Ember Vale"><h3>Watch Ember Vale</h3><p class="note" style="margin-bottom:12px">No number, no slot. The public never sees who is watching. Choose whether Ember Vale can.</p>
+    <div style="display:grid;gap:8px;margin-bottom:16px" role="radiogroup" aria-label="Who can see this watch">
+     ${[["named","Name visible to the artist","@maya appears in her list of people watching."],["anon","Anonymous","You're counted, but she never sees your name."]].map(o=>`<button class="toggle" role="radio" aria-checked="${S.wvis===o[0]}" data-a="wvis" data-v="${o[0]}" style="text-align:left;${S.wvis===o[0]?'border-color:var(--accent)':''}"><div><b>${o[1]}</b><span class="note">${o[2]}</span></div></button>`).join("")}</div>
+    <div class="row2"><button class="btn s" data-a="close">Cancel</button><button class="btn p" data-a="dowatch">Watch</button></div></div></div>`;
+  if(S.sheet==="claim") return `<div class="veil" data-a="close-veil"><div class="sheet" role="dialog" aria-label="Claim Ember Vale"><h3>Claim Ember Vale as #7?</h3><p class="note" style="margin-bottom:12px">Your number is permanent. Who sees your name is your choice, and you can change it later.</p>
+    <div style="display:grid;gap:8px;margin-bottom:16px" role="radiogroup" aria-label="Who can see this claim">
+     ${[["public","Show my name","Ember Vale, the Founders board and your profile show @maya."],["artist","Artist only","Ember Vale sees you're a fan. Everyone else sees \"Anonymous scout\"."],["anon","Anonymous","Nobody sees your name, not even Ember Vale."]].map(o=>`<button class="toggle" role="radio" aria-checked="${S.vis===o[0]}" data-a="vis" data-v="${o[0]}" style="text-align:left;${S.vis===o[0]?'border-color:var(--accent)':''}"><div><b>${o[1]}</b><span class="note">${o[2]}</span></div></button>`).join("")}</div>
+    <p class="note" style="margin-bottom:12px">You keep #7, your points and your slot either way.</p>
+    <div class="row2"><button class="btn s" data-a="close">Not yet</button><button class="btn p" data-a="doclaim">Claim #7</button></div></div></div>`;
+  if(S.sheet==="delist") return `<div class="veil" data-a="close-veil"><div class="sheet" role="dialog" aria-label="Remove page"><h3>Remove your page?</h3><p class="note" style="margin-bottom:16px">Ember Vale will be hidden from discovery. Scouts keep their claim numbers as history. You can bring the page back by verifying again.</p><div class="row2"><button class="btn s" data-a="close">Keep it</button><button class="btn p" data-a="delist">Remove</button></div></div></div>`;
+  if(S.sheet==="drop") return `<div class="veil" data-a="close-veil"><div class="sheet" role="dialog" aria-label="Drop artist"><h3>Drop Ember Vale?</h3><p class="note" style="margin-bottom:16px">Your claim #7 stays on your profile as Historical. You can't re-add her for 30 days, and you'd come back with a later number.</p><div class="row2"><button class="btn s" data-a="close">Keep her</button><button class="btn p" data-a="dodrop">Drop</button></div></div></div>`;
+  return "";
+}
+
+function render(){
+  $("#steps").innerHTML=PAGES.map((p,i)=>`<li><button data-a="page" data-n="${i}" ${i===S.page?'aria-current="step"':''}><span class="n">${i+1}</span><span><span class="t">${p.t}</span><span class="d">${p.d}</span></span></button></li>`).join("");
+  const desk=S.device==="desktop";
+  document.querySelector(".page").className="page"+(desk?" deskmode":"");
+  phone.className="phone"+(desk?" desk":"");
+  $("#dev").innerHTML=`<button data-a="device" data-d="phone" aria-pressed="${!desk}">Phone</button><button data-a="device" data-d="desktop" aria-pressed="${desk}">Desktop</button>`;
+  phone.innerHTML=`<div class="banner">FICTIONAL DATA · MOCKUP</div><div class="status"><span>9:41</span><span>5G ●●●●</span></div><div class="chrome"><i></i><i></i><i></i><span class="url">claimedfirst.com/${URLS[S.page]}</span></div>${views[S.page]()}${sheet()}${S.toast?`<div class="toast" role="status">${S.toast}</div>`:""}`;
+  refreshLive();
+}
+function refreshLive(){
+  const h=$("#h");if(h){const c=handleCheck(S.handle);h.className="in "+(S.handle?(c.ok?"good":"bad"):"");$("#hh").textContent=c.msg;$("#hh").className="hint "+(S.handle?(c.ok?"good":"bad"):"");$("#hgo").disabled=!c.ok}
+  const sh=$("#sh");if(sh){const s=songState();sh.textContent=s.msg;sh.className="hint "+(s.ok?"good":"bad");$("#ssave").disabled=!s.ok}
+  const dn=$("#dn");if(dn){const d=donateState();$("#dh").textContent=d.msg;$("#dh").className="hint "+(S.donate?(d.ok?"good":"bad"):"");dn.className="in "+(S.donate?(d.ok?"good":"bad"):"")}
+}
+function toast(m){S.toast=m;render();clearTimeout(tt);tt=setTimeout(()=>{S.toast=null;render()},2200)}
+
+document.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.id==="h"){S.handle=t.value.toLowerCase().trim();t.value=S.handle;refreshLive()}
+  else if(t.dataset.song!==undefined){S.songs[+t.dataset.song][t.dataset.f]=t.value;refreshLive()}
+  else if(t.id==="dn"){S.donate=t.value.trim();refreshLive()}
+});
+document.addEventListener("change",e=>{if(e.target.id==="vp"){S.vPick=e.target.value;S.vResult=null;render()}});
+document.addEventListener("click",e=>{
+  const el=e.target.closest("[data-a]");if(!el||el.tagName==="SELECT")return;
+  const a=el.dataset.a;
+  if(a==="page"){S.page=+el.dataset.n;S.sheet=null;render()}
+  else if(a==="ob-next"){S.ob=1;render()}
+  else if(a==="view"){S.view=el.dataset.v;render()}
+  else if(a==="claim"){S.sheet="claim";render()}
+  else if(a==="watch"){S.sheet="watch";render()}
+  else if(a==="wvis"){S.wvis=el.dataset.v;render()}
+  else if(a==="dowatch"){S.sheet=null;toast(S.wvis==="named"?"Watching. Ember Vale can see your name.":"Watching anonymously. Counted, never named.")}
+  else if(a==="vis"){S.vis=el.dataset.v;render()}
+  else if(a==="doclaim"){S.sheet=null;S.claimed=true;render();toast(({public:"Claimed as #7 with your name shown",artist:"Claimed as #7. Only Ember Vale sees your name.",anon:"Claimed as #7, anonymous"})[S.vis])}
+  else if(a==="drop"){S.sheet="drop";render()}
+  else if(a==="dodrop"){S.sheet=null;S.claimed=false;toast("Dropped. #7 is now Historical on your profile.")}
+  else if(a==="device"){S.device=el.dataset.d;render()}
+  else if(a==="aud"){S.aud=el.dataset.t;render()}
+  else if(a==="board"){S.board=el.dataset.b;render()}
+  else if(a==="check"){if(S.vPick==="suno"){S.verified=true;S.vResult="ok";render();toast("Verified. Your page is live.")}else{S.vResult="bad";render()}}
+  else if(a==="addsong"){if(S.songs.length<10){S.songs.push({t:"",u:""});render()}}
+  else if(a==="rmsong"){S.songs.splice(+el.dataset.i,1);render()}
+  else if(a==="savesongs"){if(songState().ok)toast("Top Songs saved")}
+  else if(a==="freeze"){S.freeze=!S.freeze;render();toast(S.freeze?"New claims frozen":"Claims open again")}
+  else if(a==="open-delist"){S.sheet="delist";render()}
+  else if(a==="delist"){S.sheet=null;S.delisted=true;render()}
+  else if(a==="relist"){S.delisted=false;render()}
+  else if(a==="close-veil"){if(e.target===el){S.sheet=null;render()}}
+  else if(a==="close"){S.sheet=null;render()}
+  else if(a==="toast"){toast(el.dataset.m)}
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&S.sheet){S.sheet=null;render()}});
+render();
+</script>
+</body>
+</html>
